@@ -24,5 +24,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "api", "node_modules/todoist"]
+  "include": ["src", "node_modules/todoist"]
 }
