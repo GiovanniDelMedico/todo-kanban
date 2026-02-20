@@ -1,14 +1,20 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+export const config = {
+  runtime: "edge",
+};
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: Request): Promise<Response> {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+    });
   }
 
-  const { code } = req.body;
+  const { code } = await req.json();
 
   if (!code) {
-    return res.status(400).json({ error: "Missing authorization code" });
+    return new Response(JSON.stringify({ error: "Missing authorization code" }), {
+      status: 400,
+    });
   }
 
   const client_id = process.env.TODOIST_CLIENT_ID;
@@ -16,7 +22,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const redirect_uri = process.env.TODOIST_REDIRECT_URI;
 
   if (!client_id || !client_secret || !redirect_uri) {
-    return res.status(500).json({ error: "Missing environment variables" });
+    return new Response(JSON.stringify({ error: "Missing environment variables" }), {
+      status: 500,
+    });
   }
 
   try {
@@ -34,11 +42,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await response.json();
 
     if (!data.access_token) {
-      return res.status(400).json({ error: "Failed to exchange code", details: data });
+      return new Response(
+        JSON.stringify({ error: "Failed to exchange code", details: data }),
+        { status: 400 }
+      );
     }
 
-    return res.status(200).json({ access_token: data.access_token });
+    return new Response(JSON.stringify({ access_token: data.access_token }), {
+      status: 200,
+    });
   } catch (error) {
-    return res.status(500).json({ error: "Server error", details: error });
+    return new Response(JSON.stringify({ error: "Server error", details: error }), {
+      status: 500,
+    });
   }
 }
