@@ -7,7 +7,7 @@ export function ConnectTodoistButton() {
   };
 
   return (
-    <button onClick={handleClick}>
+    <button className="bg-blue-400 shadow-lg p-4 text-2xl font-bold rounded-2xl" onClick={handleClick}>
       Collega Todoist
     </button>
   );

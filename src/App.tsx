@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { COLUMS } from "./data/columns";
 import { TASKS } from "./data/tasks";
 import { KanbanBoard } from "./components/KanbanBoard";
+import { ConnectTodoistButton } from "./components/CollegaTodoist";
 
 import { AuthCallbackPage } from "./pages/AuthCallbackPage";
 import "./App.css";
@@ -26,7 +27,9 @@ function HomePage() {
       <h1 className="text-3xl font-bold mb-6 text-red-500">
         Todoist Kanban Board
       </h1>
-
+       <div className="mb-4">
+        <ConnectTodoistButton />
+      </div>
       <KanbanBoard
         columns={COLUMS}
         tasks={tasks}
