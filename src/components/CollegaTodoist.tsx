@@ -3,6 +3,7 @@ import { getTodoistAuthUrl } from "../auth/todoistAuth";
 export function ConnectTodoistButton() {
   const handleClick = () => {
     const url = getTodoistAuthUrl();
+    console.log("AUTH URL:", url);
     window.location.href = url;
   };
 
