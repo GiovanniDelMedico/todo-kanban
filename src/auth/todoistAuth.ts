@@ -1,9 +1,12 @@
-import { TODOIST_CLIENT_ID,TODOIST_SCOPES,TODOIST_REDIRECT_URI } from "../config/todoist";
+// src/auth/todoistAuth.ts
+
+const TODOIST_CLIENT_ID = import.meta.env.VITE_TODOIST_CLIENT_ID;
+const TODOIST_REDIRECT_URI = import.meta.env.VITE_TODOIST_REDIRECT_URI;
+const TODOIST_SCOPES = "data:read_write";
 
 const TODOIST_AUTH_BASE_URL = "https://todoist.com/oauth/authorize";
 
 function generateState(): string {
-  // In produzione andrebbe salvato (es. in cookie/sessione) per prevenire CSRF
   return crypto.randomUUID();
 }
 
